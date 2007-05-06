@@ -3,7 +3,7 @@
 Summary:	A program for faxing using a Class 1, 2 or 2.0 fax modem
 Name:		efax
 Version:	0.9a
-Release:	%mkrel 7
+Release:	%mkrel 8
 License:	GPL
 Group:		Communications
 Source0:	http://www.cce.com/efax/download/%{name}-%{version}-%{subver}.tar.bz2
@@ -14,6 +14,7 @@ Patch1:		efax-0.9a-crashpowerpc.patch.bz2
 Patch2:		efax-0.9a-faxmail-mime.patch.bz2
 Patch3:		efax-0.9a-fax_send.patch.bz2
 Patch4:		efax-0.9a-fax_locale.patch.bz2
+Patch5:		efax-0.9a_illegalnumber_test.patch.bz2
 
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
@@ -31,6 +32,7 @@ Class 1, 2 or 2.0 fax modem.
 %patch2 -p1 -b .faxmail-mime
 %patch3 -p1 -b .fax_send
 %patch4 -p1 -b .fax_locale
+%patch5 -p1 -b .fax
 
 find . -type f | xargs perl -p -i -e 's@xloadimage@xli@';
 
