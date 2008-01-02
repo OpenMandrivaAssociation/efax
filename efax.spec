@@ -16,6 +16,7 @@ Patch3:		efax-0.9a-fax_send.patch.bz2
 Patch4:		efax-0.9a-fax_locale.patch.bz2
 Patch5:		efax-0.9a_illegalnumber_test.patch.bz2
 
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Efax is a small ANSI C/POSIX program that sends and receives faxes using
