@@ -42,17 +42,17 @@ find . -type f | xargs perl -p -i -e 's@xloadimage@xli@';
 %make CFLAGS="$RPM_OPT_FLAGS"
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT%{_bindir}
-mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
+rm -rf %{buildroot}
+mkdir -p %{buildroot}%{_bindir}
+mkdir -p %{buildroot}%{_mandir}/man1
 
-make BINDIR=$RPM_BUILD_ROOT%{_bindir} MANDIR=$RPM_BUILD_ROOT%{_mandir} install
+make BINDIR=%{buildroot}%{_bindir} MANDIR=%{buildroot}%{_mandir} install
 
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
-bzcat %{SOURCE1} > $RPM_BUILD_ROOT%{_sysconfdir}/fax.config
+mkdir -p %{buildroot}%{_sysconfdir}
+bzcat %{SOURCE1} > %{buildroot}%{_sysconfdir}/fax.config
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
