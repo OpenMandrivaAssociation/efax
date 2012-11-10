@@ -1,0 +1,33 @@
+#! /bin/sh -e
+## 01faxmail-mime by Filippo Panessa
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Fixed wrong MIME generates from fax scripts in faxmail function
+## DP: (Closes: #140114)
+
+if [ $# -ne 1 ]; then
+    echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+    exit 1
+fi
+case "$1" in
+	-patch) patch -f --no-backup-if-mismatch --dry-run -p1 < $0 && patch -f --no-backup-if-mismatch -p1 < $0;;
+	-unpatch) patch -f --no-backup-if-mismatch -R -p1 < $0;;
+	*)
+		echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+		exit 1;;
+esac
+exit 0
+
+@DPATCH@
+diff -Nuar efax-0.9a.orig/fax efax-0.9a/fax
+--- efax-0.9a.orig/fax	2003-04-11 01:01:27.000000000 +0200
++++ efax-0.9a/fax	2003-04-11 01:01:53.000000000 +0200
+@@ -488,7 +488,7 @@
+      echo "Content-Disposition: attachment; filename=\"$f.tiff\""
+      echo ""
+      $EFIX -M <$f
+-     echo "--EFAX_MAIL--"
++     # echo "--EFAX_MAIL--"
+    done
+    echo "--EFAX_MAIL--"
+ }

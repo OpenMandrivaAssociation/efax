@@ -1,0 +1,56 @@
+#! /bin/sh -e
+## 03fax_send by Matteo Frigo
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Fix segfault on PowerPC #280271
+
+if [ $# -ne 1 ]; then
+    echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+    exit 1
+fi
+case "$1" in
+	-patch) patch -f --no-backup-if-mismatch --dry-run -p1 < $0 && patch -f --no-backup-if-mismatch -p1 < $0;;
+	-unpatch) patch -f --no-backup-if-mismatch -R -p1 < $0;;
+	*)
+		echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+		exit 1;;
+esac
+exit 0
+
+@DPATCH@
+--- efax-0.9a-001114/efaxmsg.c	1999-03-19 22:38:20.000000000 -0600
++++ efax-0.9a/efaxmsg.c	2004-11-27 19:20:04.083647672 -0600
+@@ -98,9 +98,6 @@
+   int err=0, i, flags=0 ;
+   char *p ;
+   
+-  va_list ap ;
+-  va_start ( ap, fmt ) ;
+-
+   if ( ! init ) {
+     logfile[0] = stderr ;
+     logfile[1] = stdout ;
+@@ -111,6 +108,9 @@
+   }
+   
+   for ( i=0 ; i<NLOG ; i++ ) {
++       va_list ap ;
++       va_start ( ap, fmt ) ;
++
+ 
+     for ( p=fmt ; *p ; p++ ) {
+       switch ( *p ) {
+@@ -148,10 +148,10 @@
+       if ( ! ( flags & NOFLSH ) ) fflush ( logfile[i] ) ;
+       
+     }
+-    
++
++    va_end ( ap ) ;
+   }
+   
+-  va_end ( ap ) ;
+   
+   return err ;
+ }
+

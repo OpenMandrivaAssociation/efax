@@ -1,0 +1,35 @@
+#! /bin/sh -e
+## 03fax_send by Filippo Panessa
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Added feedback when user forgets to specify the file to send with
+## DP: fax script (Closes: #144406)
+
+if [ $# -ne 1 ]; then
+    echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+    exit 1
+fi
+case "$1" in
+	-patch) patch -f --no-backup-if-mismatch --dry-run -p1 < $0 && patch -f --no-backup-if-mismatch -p1 < $0;;
+	-unpatch) patch -f --no-backup-if-mismatch -R -p1 < $0;;
+	*)
+		echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+		exit 1;;
+esac
+exit 0
+
+@DPATCH@
+diff -Nuar efax-0.9a/fax efax-0.9a.orig/fax
+--- efax-0.9a/fax	2003-04-18 17:53:48.000000000 +0200
++++ efax-0.9a.orig/fax	2003-04-18 17:56:39.000000000 +0200
+@@ -795,6 +795,10 @@
+ 	0) echo "missing phone number to call" ; ERR=2 ; break ;;
+ 	esac
+ 
++   case $# in
++   1) echo "missing file to send" ; ERR=2 ; break ;;
++	esac
++					
+ 	# look up names
+ 
+ 	case $1 in 

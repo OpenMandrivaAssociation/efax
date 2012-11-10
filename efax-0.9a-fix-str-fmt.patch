@@ -1,0 +1,15 @@
+--- efaxlib.c.str	2009-04-07 15:36:37.000000000 +0200
++++ efaxlib.c	2009-04-07 15:37:04.000000000 +0200
+@@ -1784,10 +1784,10 @@
+       tiffinit(f) ;		/* rewind & update TIFF header */
+       break ;
+     case O_PCL:
+-      fprintf ( f->f, PCLEND ) ;
++      fprintf ( f->f, "%s", PCLEND ) ;
+       break ;
+     case O_PS:
+-      fprintf ( f->f, PSPAGEEND ) ;
++      fprintf ( f->f, "%s", PSPAGEEND ) ;
+       if ( f->fname || page<0 ) fprintf ( f->f, PSEND, f->lastpageno ) ;
+       break ;
+     case O_PCX:

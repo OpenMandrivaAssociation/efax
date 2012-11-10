@@ -1,0 +1,32 @@
+#! /bin/sh -e
+## 00fax_locale by Filippo Panessa
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Fixed fax (view|make|send) for all locales (Closes: #160926, #165832)
+
+if [ $# -ne 1 ]; then
+    echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+    exit 1
+fi
+case "$1" in
+	-patch) patch -f --no-backup-if-mismatch --dry-run -p1 < $0 && patch -f --no-backup-if-mismatch -p1 < $0;;
+	-unpatch) patch -f --no-backup-if-mismatch -R -p1 < $0;;
+	*)
+		echo >&2 "`basename $0`: script expects -patch|-unpatch as argument"
+		exit 1;;
+esac
+exit 0
+
+@DPATCH@
+diff -Nuar efax-0.9a.orig/efix.c efax-0.9a/efix.c
+--- efax-0.9a.orig/efix.c	2000-02-06 23:36:25.000000000 +0100
++++ efax-0.9a/efix.c	2003-04-10 18:58:30.000000000 +0200
+@@ -249,7 +249,7 @@
+ 
+   argv0 = argv[0] ;
+ 
+-  setlocale ( LC_ALL, "" ) ;
++  // setlocale ( LC_ALL, "" ) ;
+ 
+   /* process arguments */
+ 
