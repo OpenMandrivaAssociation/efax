@@ -3,7 +3,7 @@
 Summary:	A program for faxing using a Class 1, 2 or 2.0 fax modem
 Name:		efax
 Version:	0.9a
-Release:	%mkrel 16
+Release:	17
 License:	GPL
 Group:		Communications
 Source0:	http://www.cce.com/efax/download/%{name}-%{version}-%{subver}.tar.bz2
@@ -16,8 +16,7 @@ Patch3:		efax-0.9a-fax_send.patch
 Patch4:		efax-0.9a-fax_locale.patch
 Patch5:		efax-0.9a_illegalnumber_test.patch
 Patch6:		efax-0.9a-fix-str-fmt.patch
-
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+Patch7:		efax-0.9a-nostrip.patch
 
 %description
 Efax is a small ANSI C/POSIX program that sends and receives faxes using
@@ -35,14 +34,14 @@ Class 1, 2 or 2.0 fax modem.
 %patch4 -p1 -b .fax_locale
 %patch5 -p1 -b .fax
 %patch6 -p0 -b .str
+%patch7 -p1 -b .nostrip
 
 find . -type f | xargs perl -p -i -e 's@xloadimage@xli@';
 
 %build
-%make CFLAGS="$RPM_OPT_FLAGS"
+%make CFLAGS="%{optflags}" LDFLAGS="%{ldflags}"
 
 %install
-rm -rf %{buildroot}
 mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_mandir}/man1
 
@@ -51,11 +50,7 @@ make BINDIR=%{buildroot}%{_bindir} MANDIR=%{buildroot}%{_mandir} install
 mkdir -p %{buildroot}%{_sysconfdir}
 bzcat %{SOURCE1} > %{buildroot}%{_sysconfdir}/fax.config
 
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc README
 %attr(644,root,root) %config(noreplace) %{_sysconfdir}/fax.config
 %{_bindir}/fax
@@ -64,3 +59,5 @@ rm -rf %{buildroot}
 %{_mandir}/man1/fax.1*
 %{_mandir}/man1/efax.1*
 %{_mandir}/man1/efix.1*
+
+

@@ -1,0 +1,15 @@
+diff -urN efax-0.9a-001114a7/Makefile efax-0.9a-001114a7-patched/Makefile
+--- efax-0.9a-001114a7/Makefile	2000-06-29 13:01:22.000000000 +1100
++++ efax-0.9a-001114a7-patched/Makefile	2012-10-20 12:45:01.146319437 +1100
+@@ -25,11 +25,9 @@
+ 
+ efax:	efax.o efaxlib.o efaxio.o efaxos.o efaxmsg.o
+ 	$(CC) -o efax $(LDFLAGS) efax.o efaxlib.o efaxio.o efaxos.o efaxmsg.o
+-	strip efax
+ 
+ efix:	efix.o efaxlib.o efaxmsg.o
+ 	$(CC) -o efix $(LDFLAGS) efix.o efaxlib.o efaxmsg.o
+-	strip efix
+ 
+ install:
+ 	cp fax efax efix $(BINDIR)
