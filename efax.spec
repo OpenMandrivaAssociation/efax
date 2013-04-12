@@ -4,10 +4,10 @@ Summary:	A program for faxing using a Class 1, 2 or 2.0 fax modem
 Name:		efax
 Version:	0.9a
 Release:	17
-License:	GPL
+License:	GPLv2
 Group:		Communications
+Url:		http://www.cce.com/efax/
 Source0:	http://www.cce.com/efax/download/%{name}-%{version}-%{subver}.tar.bz2
-URL:		http://www.cce.com/efax/
 Source1:	efax.config.bz2
 Patch0:		efax-0.9a-mdkconf.patch
 Patch1:		efax-0.9a-crashpowerpc.patch
@@ -26,15 +26,8 @@ You need to install efax if you want to send faxes and you have a
 Class 1, 2 or 2.0 fax modem.
 
 %prep
-%setup -q -n %{name}-%{version}-%{subver}
-%patch0 -p1
-%patch1 -p1 -b .crashpowerpc
-%patch2 -p1 -b .faxmail-mime
-%patch3 -p1 -b .fax_send
-%patch4 -p1 -b .fax_locale
-%patch5 -p1 -b .fax
-%patch6 -p0 -b .str
-%patch7 -p1 -b .nostrip
+%setup -qn %{name}-%{version}-%{subver}
+%apply_patches
 
 find . -type f | xargs perl -p -i -e 's@xloadimage@xli@';
 
@@ -59,5 +52,4 @@ bzcat %{SOURCE1} > %{buildroot}%{_sysconfdir}/fax.config
 %{_mandir}/man1/fax.1*
 %{_mandir}/man1/efax.1*
 %{_mandir}/man1/efix.1*
-
 
