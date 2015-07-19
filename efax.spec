@@ -3,7 +3,7 @@
 Summary:	A program for faxing using a Class 1, 2 or 2.0 fax modem
 Name:		efax
 Version:	0.9a
-Release:	24
+Release:	25
 License:	GPLv2
 Group:		Communications
 Url:		http://www.cce.com/efax/
