@@ -27,7 +27,7 @@ Class 1, 2 or 2.0 fax modem.
 
 %prep
 %setup -qn %{name}-%{version}-%{subver}
-%apply_patches
+%autopatch -p1
 
 find . -type f | xargs perl -p -i -e 's@xloadimage@xli@';
 
