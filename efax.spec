@@ -17,6 +17,7 @@ Patch4:		efax-0.9a-fax_locale.patch
 Patch5:		efax-0.9a_illegalnumber_test.patch
 Patch6:		efax-0.9a-fix-str-fmt.patch
 Patch7:		efax-0.9a-nostrip.patch
+Patch8:		fix-multiple-definition-link-error.patch
 
 %description
 Efax is a small ANSI C/POSIX program that sends and receives faxes using
@@ -32,7 +33,7 @@ Class 1, 2 or 2.0 fax modem.
 find . -type f | xargs perl -p -i -e 's@xloadimage@xli@';
 
 %build
-%make CFLAGS="%{optflags}" LDFLAGS="%{ldflags}"
+%make_build CFLAGS="%{optflags}" LDFLAGS="%{ldflags}"
 
 %install
 mkdir -p %{buildroot}%{_bindir}
