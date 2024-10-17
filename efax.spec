@@ -7,7 +7,7 @@ Version:	0.9a
 Release:	27
 License:	GPLv2
 Group:		Communications
-Url:		http://www.cce.com/efax/
+Url:		https://www.cce.com/efax/
 Source0:	http://www.cce.com/efax/download/%{name}-%{version}-%{subver}.tar.bz2
 Source1:	efax.config.bz2
 Patch0:		efax-0.9a-mdkconf.patch
