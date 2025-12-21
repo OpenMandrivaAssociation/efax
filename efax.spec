@@ -19,6 +19,7 @@ Patch5:		efax-0.9a_illegalnumber_test.patch
 Patch6:		efax-0.9a-fix-str-fmt.patch
 Patch7:		efax-0.9a-nostrip.patch
 
+BuildRequires:	make
 %description
 Efax is a small ANSI C/POSIX program that sends and receives faxes using
 any Class 1, 2 or 2.0 fax modem.
